@@ -75,6 +75,20 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (DataManager.Instance.values.ContainsKey(DataManager.Instance.PlayerName))
+        {
+            int test;
+            DataManager.Instance.values.TryGetValue(DataManager.Instance.PlayerName,out test);
+            if (test < m_Points)
+            {
+                DataManager.Instance.values[DataManager.Instance.PlayerName]= m_Points;
+            }
+        }
+        else
+        {
+            DataManager.Instance.values.Add(DataManager.Instance.PlayerName, m_Points);
+        }
+        DataManager.Instance.SaveScore();
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
